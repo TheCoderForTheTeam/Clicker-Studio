@@ -1,0 +1,75 @@
+Scripts:
+
+Music Script (make sure you have your id!)
+
+Script 1 (Normal Standard Playlist):
+
+local SoundGroup = game.SoundService.SoundGroup -- Change SoundGroup to whatever you named your SoundGroup
+local Playlist = {
+    Sound1 = SoundGroup.Sound1, -- Change sound name accordingly 
+    Sound2 = SoundGroup.Sound2,
+    Sound3 = SoundGroup.Sound3,-- Change sound name accordingly 
+    -- Add more sounds if needed
+}
+
+local function PlaySound(Sound)
+    Sound:Play()
+    Sound.Ended:Wait()
+end
+
+while true do
+    for _, Sound in pairs(Playlist) do
+        PlaySound(Sound)
+        wait(2) -- The wait time between songs
+    end
+end
+
+
+Script 2 (Random Playlist): 
+
+local SoundGroup = game.SoundService.SoundGroup -- Change SoundGroup to whatever you named your SoundGroup
+local Playlist = {
+ SoundGroup.Sound1,
+ SoundGroup.Sound2,
+ SoundGroup.Sound3,
+ -- Add more sounds if needed
+}
+
+local function PlayRandomSound()
+ local randomIndex = math.random(1, #Playlist)
+ local Sounds = Playlist[randomIndex]
+
+ if Sounds then
+  Sounds:Play()
+  Sounds.Ended:Wait()
+ end
+end
+
+while true do
+ PlayRandomSound() 
+ wait(2) -- The wait time between songs
+end
+
+
+
+
+Extra: (Mute button) (you need to create a screengui)
+
+
+Script 3 (Mute Button):
+
+script.Parent.Text = "Mute" -- The initial text when the game loads
+local PlaylistActive = false
+local MusicSoundGroup = game:GetService("SoundService").SoundGroup -- Change SoundGroup to whatever your SoundGroup is called
+
+script.Parent.MouseButton1Click:Connect(function()
+ if not PlaylistActive then
+  MusicSoundGroup.Volume = 0
+  script.Parent.Text = "Unmute"
+  PlaylistActive = true
+ else
+  MusicSoundGroup.Volume = 0.5 -- This is the volume of the audio when they turn it back on
+  script.Parent.Text = "Mute"
+  PlaylistActive = false
+ end
+end)
